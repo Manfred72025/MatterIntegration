@@ -45,4 +45,17 @@ export const fetchTeamUsers = async (teamId: string) => {
   const response = await fetch(`${BASE_URL}/users/by-team/${teamId}`);
   if (!response.ok) throw new Error('Ошибка загрузки пользователей команды');
   return await response.json();
+};
+
+export const createTopic = async (data: { team_id: string; discussion_name: string; user_ids: string[] }) => {
+  const response = await fetch(`${BASE_URL}/alfa_chat/api/v1/createTopic`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err?.error || 'Ошибка создания топика');
+  }
+  return await response.json();
 }; 

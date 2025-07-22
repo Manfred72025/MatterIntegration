@@ -16,6 +16,8 @@ import { selectUsers, selectUsersLoading } from '../store/usersSlice';
 import { RootState } from '../store/store';
 import CreateDiscussionForm from './CreateDiscussionForm';
 import { fetchTeamUsers } from '../dal';
+import CreateTopicForm from './CreateTopicForm';
+import { createTopic } from '../dal';
 
 const { Option } = Select;
 
@@ -38,6 +40,9 @@ const Discussions: React.FC = () => {
   const [teamUsersLoading, setTeamUsersLoading] = React.useState(false);
   const [pendingSelectDiscussionId, setPendingSelectDiscussionId] = React.useState<string | null>(null);
   const [deletingId, setDeletingId] = React.useState<string | null>(null);
+  const [isCreateTopicModalOpen, setIsCreateTopicModalOpen] = React.useState(false);
+  const [createTopicForm] = Form.useForm();
+  const [creatingTopic, setCreatingTopic] = React.useState(false);
 
   // Загрузка обсуждений
   useEffect(() => {
@@ -168,6 +173,23 @@ const Discussions: React.FC = () => {
     });
   };
 
+  const handleCreateTopic = async () => {
+    setCreatingTopic(true);
+    try {
+      const values = await createTopicForm.validateFields();
+      const res = await createTopic(values);
+      console.log('CreateTopic response:', res); // <-- выводим ответ
+      message.success('Топик создан!');
+      setIsCreateTopicModalOpen(false);
+      createTopicForm.resetFields();
+      dispatch(fetchDiscussionsThunk() as any);
+    } catch (e: any) {
+      message.error(e.message || 'Ошибка создания топика');
+    } finally {
+      setCreatingTopic(false);
+    }
+  };
+
   useEffect(() => {
     if (isCreateDiscussionModalOpen && teams.length > 0) {
       createDiscussionForm.setFieldsValue({ team_id: teams[0].id });
@@ -210,11 +232,27 @@ const Discussions: React.FC = () => {
           setIsCreateDiscussionModalOpen={setIsCreateDiscussionModalOpen}
         />
       </Modal>
+      <Modal
+        title="Создать топик"
+        open={isCreateTopicModalOpen}
+        onCancel={() => setIsCreateTopicModalOpen(false)}
+        footer={null}
+      >
+        <CreateTopicForm
+          form={createTopicForm}
+          onFinish={handleCreateTopic}
+          creating={creatingTopic}
+          setIsCreateTopicModalOpen={setIsCreateTopicModalOpen}
+        />
+      </Modal>
       <Row style={{ height: '100%' }}>
         <Col flex="1 1 300px" style={{ maxWidth: 400, minWidth: 280, minHeight: 0, boxSizing: 'border-box', height: '100%', display: 'flex', flexDirection: 'column', padding: 8 }}>
           <Card title="Список обсуждений" style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, boxSizing: 'border-box' }} bodyStyle={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
             <Button type="primary" onClick={() => setIsCreateDiscussionModalOpen(true)} style={{ marginBottom: 8 }}>
               Создать обсуждение
+            </Button>
+            <Button type="dashed" onClick={() => setIsCreateTopicModalOpen(true)} style={{ marginBottom: 8 }}>
+              Создать топик
             </Button>
             <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
               <List
