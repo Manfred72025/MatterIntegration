@@ -21,7 +21,7 @@ export const fetchChannelMembers = async (channelId: string) => {
 };
 
 export const fetchTeams = async () => {
-  const response = await fetch(`${BASE_URL}/teams`);
+  const response = await fetch(`${BASE_URL}/alfa_chat/api/v1/getTeams`);
   if (!response.ok) throw new Error('Ошибка загрузки команд');
   const data = await response.json();
   return Array.isArray(data) ? data : (data.teams || []);
