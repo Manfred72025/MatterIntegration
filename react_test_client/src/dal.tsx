@@ -58,4 +58,17 @@ export const createTopic = async (data: { team_id: string; discussion_name: stri
     throw new Error(err?.error || 'Ошибка создания топика');
   }
   return await response.json();
+};
+
+export const createUser = async (data: { email: string; username: string; password: string; team_id: string }) => {
+  const response = await fetch(`${BASE_URL}/alfa_chat/api/v1/createUser`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err?.error || 'Ошибка создания пользователя');
+  }
+  return await response.json();
 }; 
