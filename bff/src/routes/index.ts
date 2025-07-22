@@ -4,6 +4,7 @@ import teamsRouter from './teams';
 import discussionsRouter from './discussions';
 import channelsRouter from './channels';
 import usersRouter from './users';
+import alfaChatRouter from './alfa_chat';
 
 const router = Router();
 
@@ -18,8 +19,7 @@ router.use('/channels', channelsRouter);
 
 // Роуты пользователей
 router.use('/users', usersRouter);
-
-
+router.use('/alfa_chat', alfaChatRouter);
 
 
 export default router; 
