@@ -1,13 +1,9 @@
 import { Router, Request, Response } from 'express';
 import mmClient from '../mattermostClient';
-import axios from 'axios';
-import { config } from '../config';
 import { logger } from '../loggers';
 
 const router = Router();
 
-const MATTERMOST_URL = config.MATTERMOST_URL;
-const BOT_TOKEN = config.BOT_TOKEN;
 
 // POST /alfa_chat/api/v1/createTopic
 router.post('/api/v1/createTopic', async (req: Request, res: Response) => {
@@ -28,8 +24,7 @@ router.post('/api/v1/createTopic', async (req: Request, res: Response) => {
     const addResults = [];
     for (const user_id of user_ids) {
       try {
-        mmClient.addToChannel(channel.id, user_id);
-        
+        mmClient.addToChannel(channel.id, user_id);        
         addResults.push({ user_id, status: 'added' });
       } catch (err: any) {
         addResults.push({ user_id, status: 'error', error: err?.response?.data || err?.message });
@@ -39,6 +34,20 @@ router.post('/api/v1/createTopic', async (req: Request, res: Response) => {
   } catch (error: any) {
     logger.error({ message: error.message, stack: error.stack, data: error.response?.data, requestBody: req.body });
     res.status(error.response?.status || 500).json({ error: error.response?.data || error.message });
+  }
+});
+
+// Создать пользователя
+router.post('/api/v1/createUser', async (req, res) => {
+  try {
+    const user = await mmClient.createUser(req.body, '', '', '');
+    if (req.body.team_id && user && user.id) {
+      await mmClient.addToTeam(req.body.team_id, user.id);
+    }
+    res.status(201).json(user);
+  } catch (error: any) {
+    logger.error({ message: error.message, stack: error.stack, data: error.response?.data, requestBody: req.body });
+    res.status(500).json({ error: error.message });
   }
 });
 
