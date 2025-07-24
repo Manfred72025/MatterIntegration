@@ -62,4 +62,15 @@ router.get('/api/v1/getTeams', async (req, res) => {
   }
 });
 
+// Webhook endpoint for Mattermost
+router.post('/api/v1/webhook', async (req, res) => {
+  try {
+    logger.info({ message: 'Получен webhook от Mattermost', body: req.body });
+    res.status(200).json({ status: 'ok' });
+  } catch (error: any) {
+    logger.error({ message: error.message, stack: error.stack, requestBody: req.body });
+    res.status(500).json({ error: error.message });
+  }
+});
+
 export default router; 
