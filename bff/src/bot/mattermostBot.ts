@@ -180,7 +180,7 @@ export class MattermostBot {
     // Обработка команды закрытия обсуждения
     if (post.message) {
       const msg = post.message.toLowerCase();
-      if (msg.includes('/close')) {//|| msg.includes('закрыть обсуждение')) {
+      if ( msg.includes('закрыть обсуждение')) {
         mattermostMessageLogger.info('Detected close discussion command');
         await this.sendResponse(post.channel_id, 'обсуждение закрыто', post.root_id);
       }
