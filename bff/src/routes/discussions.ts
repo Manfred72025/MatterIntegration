@@ -9,14 +9,7 @@ const router = Router();
 // Получить список обсуждений (каналов типа discussion)
 router.get('/', async (req: Request, res: Response) => {
   try {
-    logger.info({
-      message: 'mmClient state before getTeams',
-      mmClient: {
-        url: (mmClient as any).url,
-        token: (mmClient as any).token ? '***' : undefined,
-        // Можно добавить другие свойства, если нужно
-      }
-    });
+ 
     const teamsResult = await mmClient.getTeams();
     let team_id = '';
     if (Array.isArray(teamsResult) && teamsResult.length > 0) {
