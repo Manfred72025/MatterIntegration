@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+# React Test Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Этот проект — клиентское приложение для работы с Mattermost и управления пользователями, командами, каналами и обсуждениями.
 
-## Available Scripts
+## Основные возможности
+- Просмотр и управление пользователями
+- Просмотр и управление командами
+- Просмотр и управление каналами (с отображением участников)
+- Просмотр и создание обсуждений (discussions)
+- Интеграция с сервером BFF (http://localhost:3001)
 
-In the project directory, you can run:
+## Быстрый старт
 
-### `yarn start`
+1. Перейдите в папку проекта:
+   ```
+   cd react_test_client
+   ```
+2. Установите зависимости:
+   ```
+   yarn install
+   ```
+   или
+   ```
+   npm install
+   ```
+3. Запустите приложение:
+   ```
+   yarn start
+   ```
+   или
+   ```
+   npm start
+   ```
+4. Откройте [http://localhost:3000](http://localhost:3000) в браузере.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Основные разделы интерфейса
+- **Пользователи (Users):** просмотр списка пользователей, создание новых пользователей.
+- **Команды (Teams):** просмотр команд и их участников.
+- **Каналы (Channels):** просмотр каналов, отображение участников канала.
+- **Обсуждения (Discussions):** просмотр и создание обсуждений.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Взаимодействие с сервером
+- Для работы требуется запущенный сервер BFF на http://localhost:3001
+- Все данные (пользователи, команды, каналы, обсуждения) загружаются и отправляются через API BFF.
 
-### `yarn test`
+## Скрипты
+- `yarn start` / `npm start` — запуск приложения в режиме разработки
+- `yarn build` / `npm build` — сборка production-версии
+- `yarn test` / `npm test` — запуск тестов
+- `yarn eject` / `npm eject` — извлечение конфигурации (необратимо)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+Если возникли вопросы — проверьте, что сервер BFF запущен и доступен по адресу http://localhost:3001.

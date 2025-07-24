@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Инструкция по запуску Mattermost через Docker Compose</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background: #f9f9f9; }
+    h1 { color: #2b2b2b; }
+    ol { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px #0001; }
+    code, pre { background: #eee; padding: 2px 6px; border-radius: 4px; }
+    pre { display: block; padding: 12px; }
+    .note { background: #e7f3fe; border-left: 4px solid #2196F3; padding: 10px 16px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>Инструкция по запуску Mattermost через Docker Compose</h1>
+  <ol>
+    <li>
+      Убедитесь, что у вас установлены <b>Docker</b> и <b>Docker Compose</b>.<br>
+      <a href="https://docs.docker.com/get-docker/" target="_blank">Скачать Docker</a>
+    </li>
+    <li>
+      Сохраните файл <code>docker-compose.yml</code> в отдельной папке на вашем компьютере.
+    </li>
+    <li>
+      Откройте терминал (или PowerShell) и перейдите в папку с этим файлом:<br>
+      <pre>cd путь\к\вашей\папке</pre>
+    </li>
+    <li>
+      Запустите команду для скачивания образов и запуска контейнеров:<br>
+      <pre>docker-compose up -d</pre>
+      <small>(<b>-d</b> — запуск в фоновом режиме)</small>
+    </li>
+    <li>
+      Дождитесь, пока сервисы полностью поднимутся (это может занять несколько минут).
+    </li>
+    <li>
+      Откройте браузер и перейдите по адресу:<br>
+      <pre>http://localhost:8065</pre>
+      При первом запуске потребуется создать администратора.
+    </li>
+    <li>
+      Для остановки сервисов выполните:<br>
+      <pre>docker-compose down</pre>
+    </li>
+  </ol>
+  <div class="note">
+    <b>Примечания:</b><br>
+    — Все данные Mattermost и базы данных сохраняются в Docker volume (<code>db-volume</code> и <code>app-volume</code>), чтобы не терять данные при перезапуске контейнеров.<br>
+    — Если хотите изменить параметры (например, пароль или порт), отредактируйте соответствующие переменные в <code>docker-compose.yml</code>.
+  </div>
+</body>
+</html> 

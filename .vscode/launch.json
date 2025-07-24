@@ -13,6 +13,34 @@
             "skipFiles": [
                 "<node_internals>/**"
             ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug bff (ts-node)",
+            "program": "${workspaceFolder}/bff/src/index.ts",
+            "runtimeArgs": [
+                "-r",
+                "${workspaceFolder}/bff/node_modules/ts-node/register"
+            ],
+            "cwd": "${workspaceFolder}/bff",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "node-terminal",
+            "request": "launch",
+            "name": "React Client: npm start",
+            "command": "npm start",
+            "cwd": "${workspaceFolder}/react_test_client"
+        },
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "React Client: Debug in Chrome",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/react_test_client/src"
         }
     ]
 }
